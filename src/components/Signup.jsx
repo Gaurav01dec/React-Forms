@@ -1,98 +1,127 @@
 export default function Signup() {
-    return (
-      <form>
-        <h2>Welcome on board!</h2>
-        <p>We just need a little bit of data from you to get you started 🚀</p>
-  
-        <div className="control">
-          <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" />
-        </div>
-  
-        <div className="control-row">
-          <div className="control">
-            <label htmlFor="password">Password</label>
-            <input id="password" type="password" name="password" />
-          </div>
-  
-          <div className="control">
-            <label htmlFor="confirm-password">Confirm Password</label>
-            <input
-              id="confirm-password"
-              type="password"
-              name="confirm-password"
-            />
-          </div>
-        </div>
-  
-        <hr />
-  
-        <div className="control-row">
-          <div className="control">
-            <label htmlFor="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" />
-          </div>
-  
-          <div className="control">
-            <label htmlFor="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" />
-          </div>
-        </div>
-  
-        <div className="control">
-          <label htmlFor="phone">What best describes your role?</label>
-          <select id="role" name="role">
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-            <option value="employee">Employee</option>
-            <option value="founder">Founder</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-  
-        <fieldset>
-          <legend>How did you find us?</legend>
-          <div className="control">
-            <input
-              type="checkbox"
-              id="google"
-              name="acquisition"
-              value="google"
-            />
-            <label htmlFor="google">Google</label>
-          </div>
-  
-          <div className="control">
-            <input
-              type="checkbox"
-              id="friend"
-              name="acquisition"
-              value="friend"
-            />
-            <label htmlFor="friend">Referred by friend</label>
-          </div>
-  
-          <div className="control">
-            <input type="checkbox" id="other" name="acquisition" value="other" />
-            <label htmlFor="other">Other</label>
-          </div>
-        </fieldset>
-  
-        <div className="control">
-          <label htmlFor="terms-and-conditions">
-            <input type="checkbox" id="terms-and-conditions" name="terms" />I
-            agree to the terms and conditions
-          </label>
-        </div>
-  
-        <p className="form-actions">
-          <button type="reset" className="button button-flat">
-            Reset
-          </button>
-          <button type="submit" className="button">
-            Sign up
-          </button>
-        </p>
-      </form>
-    );
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // now we are using builtin browser function to extract the data 
+
+
+    // html input fields must have name attributes in that
+    const fd = new FormData(event.target)
+
+    //METHOD 1 
+    // const enteredEmail = fd.get('email')
+    // console.log(enteredEmail)
+
+    //METHOD 2
+    // const data = Object.fromEntries(fd.entries())
+    // console.log(data)
+    // this will give us an array which is an object  {email: 'g1@; gmail.com', password: '1', confirm-password: '1', first-name: 'gaurav', last-name: 'verma', …}
+    //but what is we have to one inpur field and multiple options we will use getall method 
+    const acquisitionChannel = fd.getAll('acquisition')
+    const data = Object.fromEntries(fd.entries())
+    data.acquisition = acquisitionChannel;
+    console.log(data)
+
+
+    // to reset the form you can use the reset btton but also you can do it on submit button by using 
+    // event.target.reset()
   }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Welcome on board!</h2>
+      <p>We just need a little bit of data from you to get you started 🚀</p>
+
+      <div className="control">
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" name="email" />
+      </div>
+
+      <div className="control-row">
+        <div className="control">
+          <label htmlFor="password">Password</label>
+          <input id="password" type="password" name="password" />
+        </div>
+
+        <div className="control">
+          <label htmlFor="confirm-password">Confirm Password</label>
+          <input
+            id="confirm-password"
+            type="password"
+            name="confirm-password"
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <div className="control-row">
+        <div className="control">
+          <label htmlFor="first-name">First Name</label>
+          <input type="text" id="first-name" name="first-name" />
+        </div>
+
+        <div className="control">
+          <label htmlFor="last-name">Last Name</label>
+          <input type="text" id="last-name" name="last-name" />
+        </div>
+      </div>
+
+      <div className="control">
+        <label htmlFor="phone">What best describes your role?</label>
+        <select id="role" name="role">
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+          <option value="employee">Employee</option>
+          <option value="founder">Founder</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>How did you find us????</legend>
+        <div className="control">
+          <input
+            type="checkbox"
+            id="google"
+            name="acquisition"
+            value="google"
+          />
+          <label htmlFor="google">Google</label>
+        </div>
+
+        <div className="control">
+          <input
+            type="checkbox"
+            id="friend"
+            name="acquisition"
+            value="friend"
+          />
+          <label htmlFor="friend">Referred by friend</label>
+        </div>
+
+        <div className="control">
+          <input type="checkbox" id="other" name="acquisition" value="other" />
+          <label htmlFor="other">Other</label>
+        </div>
+      </fieldset>
+
+      <div className="control">
+        <label htmlFor="terms-and-conditions">
+          <input type="checkbox" id="terms-and-conditions" name="terms" />I
+          agree to the terms and conditions
+        </label>
+      </div>
+
+      <p className="form-actions">
+        <button type="reset" className="button button-flat">
+          Reset
+        </button>
+        <button type="submit" className="button">
+          Sign up
+        </button>
+      </p>
+    </form>
+  );
+}
